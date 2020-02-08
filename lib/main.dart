@@ -4,7 +4,24 @@ void main() {
   runApp(QuizzApp());
 }
 
-class QuizzApp extends StatelessWidget {
+class QuizzApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return QuizzAppState();
+  }
+}
+
+class QuizzAppState extends State<QuizzApp> {
+  var questionIndex = 0;
+
+  void anserQuestion() {
+    setState(() {
+      questionIndex = questionIndex + 1;
+    });
+    print(questionIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
     var questions = [
@@ -18,10 +35,19 @@ class QuizzApp extends StatelessWidget {
         ), // AppBar
         body: Column(
           children: <Widget>[
-            Text('The question!'),
-            RaisedButton(child: Text('Answer 1'), onPressed: null,),
-            RaisedButton(child: Text('Answer 2'), onPressed: null,),
-            RaisedButton(child: Text('Answer 3'), onPressed: null,),
+            Text(questions[questionIndex]),
+            RaisedButton(
+              child: Text('Answer 1'),
+              onPressed: anserQuestion,
+            ),
+            RaisedButton(
+              child: Text('Answer 2'),
+              onPressed: null,
+            ),
+            RaisedButton(
+              child: Text('Answer 3'),
+              onPressed: null,
+            ),
           ],
         ), // Column
       ), // Scaffold

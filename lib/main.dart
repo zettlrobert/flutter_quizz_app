@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
+// could use arrow function here
 void main() {
   runApp(QuizzApp());
 }
@@ -16,7 +17,7 @@ class QuizzApp extends StatefulWidget {
 }
 
 class _QuizzAppState extends State<QuizzApp> {
-  final questions = const [
+  final _questions = const [
     {
       'questionText': 'What\'s your favourite color?',
       'answers': ['teal', 'orange', 'black', 'magenta'],
@@ -39,7 +40,7 @@ class _QuizzAppState extends State<QuizzApp> {
     });
     print(_questionIndex);
 
-    if (_questionIndex < questions.length) {
+    if (_questionIndex < _questions.length) {
       print('We have more questions!');
     }
   }
@@ -51,22 +52,14 @@ class _QuizzAppState extends State<QuizzApp> {
         appBar: AppBar(
           title: Text('My First App'),
         ), // AppBar
-        body: _questionIndex < questions.length
-            ? Column(
-                children: <Widget>[
-                  Question(
-                    questions[_questionIndex]['questionText'],
-                  ),
-                  ...(questions[_questionIndex]['answers'] as List<String>)
-                      .map((answer) {
-                    return Answer(_answerQuestion, answer);
-                  }).toList()
-                ],
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
               )
-            : Center(
-                child: Text('You did it'),
-              ), // Column
-      ), // Scaffold
+            : Result(),
+      ),
     ); // Material App
   }
 }

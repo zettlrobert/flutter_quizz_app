@@ -20,21 +20,44 @@ class _QuizzAppState extends State<QuizzApp> {
   final _questions = const [
     {
       'questionText': 'What\'s your favourite color?',
-      'answers': ['teal', 'orange', 'black', 'magenta'],
+      'answers': [
+        {'text': 'teal', 'score': 10},
+        {'text': 'orange', 'score': 20},
+        {'text': 'black', 'score': 30},
+        {'text': 'magenta', 'score': 40},
+      ],
     },
     {
       'questionText': 'What\'s your favourite animal?',
-      'answers': ['Dragon', 'Quirin', 'Eagle'],
+      'answers': [
+        {'text': 'Dragon', 'score': 10},
+        {'text': 'Quirin', 'score': 20},
+        {'text': 'Eagle', 'score': 30},
+      ],
     },
     {
       'questionText': 'What\'s your favourite Instructor?',
-      'answers': ['Max', 'Brad', 'Andrew'],
+      'answers': [
+        {'text': 'Max', 'score': 30},
+        {'text': 'Brad', 'score': 20},
+        {'text': 'Andrew', 'score': 10},
+      ],
     },
   ];
 
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion() {
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+  void _answerQuestion(int score) {
+    _totalScore = _totalScore + score;
+
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -58,7 +81,7 @@ class _QuizzAppState extends State<QuizzApp> {
                 questionIndex: _questionIndex,
                 questions: _questions,
               )
-            : Result(),
+            : Result(_totalScore, _resetQuiz),
       ),
     ); // Material App
   }

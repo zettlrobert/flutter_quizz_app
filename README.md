@@ -2,7 +2,7 @@
 
 ![cover](docs/cover.png)
 
-first flutter project a basic quizz_app
+first flutter project, a basic quizz_app
 
 ## Getting Started
 
